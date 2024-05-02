@@ -1,11 +1,27 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test2</title>
+    <title>知行合一</title>
+    <style>
+        button, input {
+            font-size: 20px;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>知行合一</h1>
-    
+    <input type="text" id="numberBox" value="0">
+    <button onclick="increment()">Add One</button>
+
+    <script>
+        function increment() {
+            var input = document.getElementById('numberBox');
+            var currentValue = parseInt(input.value, 10);
+            input.value = currentValue + 1;
+        }
+    </script>
 </body>
 </html>
