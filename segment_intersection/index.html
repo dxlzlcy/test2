@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            overflow: hidden;
+            margin: 0;
+
+        }
+        #mycanvas{
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+        canvas = document.getElementById('myCanvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let t = -0.5;
+        const ctx = canvas.getContext('2d');
+
+        const A={x:100,y:200};
+        const B={x:200,y:100};
+        const C={x:100,y:100};
+        const D={x:300,y:300};
+
+
+        const mouse={
+            x:0,
+            y:0
+        }
+        let angle = 0;
+
+        document.onmousemove=(e)=>{
+            mouse.x=e.x;
+            mouse.y=e.y;
+        }
+
+        animate();
+
+        function animate(){
+            angle+=0.01;
+            const radius=50;
+            A.x = mouse.x+Math.cos(angle)*radius;
+            A.y = mouse.y-Math.sin(angle)*radius;
+            B.x = mouse.x-Math.cos(angle)*radius;
+            B.y = mouse.y+Math.sin(angle)*radius;
+
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            const M={
+                x:lerp(A.x,B.x,t),
+                y:lerp(A.y,B.y,t)
+            }
+            const N={
+                x:lerp(C.x,D.x,t),
+                y:lerp(C.y,D.y,t)
+            }
+            
+
+
+            ctx.beginPath();
+            ctx.moveTo(A.x,A.y);
+            ctx.lineTo(B.x,B.y);
+            ctx.moveTo(C.x,C.y);
+            ctx.lineTo(D.x,D.y);
+            ctx.stroke();
+
+            drawDot(A,'A');
+            drawDot(B,'B');
+            drawDot(C,'C');
+            drawDot(D,'D');
+            // drawDot(M,'M',t<0||t>1);
+            // drawDot(N,'N',t<0||t>1);
+
+            const I=getIntersection(A,B,C,D);
+            if(I){
+                drawDot(I,I.t.toPrecision(2));
+            }
+            
+
+            requestAnimationFrame(animate);
+            t+=0.01
+
+        }
+
+        function getIntersection(A,B,C,D){
+            const top = (D.x-C.x)*(A.y-C.y)-(D.y-C.y)*(A.x-C.x);
+            const bottom = (D.y-C.y)*(B.x-A.x)-(D.x-C.x)*(B.y-A.y);
+            const t = top/bottom;
+            if(t>0&&t<1){
+                return {
+                    x:lerp(A.x,B.x,t),
+                    y:lerp(A.y,B.y,t),
+                    t:t,
+                    bottom:bottom
+                }
+            }
+            return null
+
+        }
+
+
+        function lerp(A,B,t){
+            return A+(B-A)*t
+        }
+
+
+        function drawDot(point,label,isRed){
+
+            ctx.fillStyle=isRed?'red':'white';
+            ctx.beginPath();
+            ctx.arc(point.x,point.y,10,0,10);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle='black';
+            ctx.textAlign='center';
+            ctx.textBaseline='middle';
+            ctx.font='bold 14px Arial';
+            ctx.fillText(label,point.x,point.y);
+        }
+
+    </script>
+</body>
+</html>

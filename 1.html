@@ -1,0 +1,16 @@
+<!-- HTML -->
+<form id="login-form" method="post" onsubmit="return checkForm()">
+    <input type="text" id="username" name="username">
+    <input type="password" id="password" name="password">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+function checkForm() {
+    var pwd = document.getElementById('password');
+    // 把用户输入的明文变为MD5:
+    pwd.value = toMD5(pwd.value);
+    // 继续下一步:
+    return true;
+}
+</script>

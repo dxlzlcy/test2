@@ -1,27 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知行合一</title>
-    <style>
-        button, input {
-            font-size: 20px;
-            padding: 10px;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
-    <input type="text" id="numberBox" value="0">
-    <button onclick="increment()">Add One</button>
+<html>
+    <head>
+        <title>hi</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="consoleDiv"></div>
+        <canvas id="carCanvas"></canvas>
+        <div id="verticalButton">
+            <button onclick="save()">save</button>
+            <button onclick="discard()">discard</button>
 
-    <script>
-        function increment() {
-            var input = document.getElementById('numberBox');
-            var currentValue = parseInt(input.value, 10);
-            input.value = currentValue + 1;
-        }
-    </script>
-</body>
+        </div>
+        <canvas id="networkCanvas"></canvas>
+
+
+        <script src="visualizer.js"></script>
+        <script src="network.js"></script>
+        <script src="sensor.js"></script>
+        <script src="controls.js"></script>
+        <script src="utils.js"></script>
+        <script src="road.js"></script>
+        <script src="car.js"></script>
+        <script src="main.js"></script>
+
+    </body>
 </html>

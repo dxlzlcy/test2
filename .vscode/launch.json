@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "test",
+            "projectName": "radu_car-20240409_950126eb"
+        },
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/car.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/car.html"
+        }
+    ]
+}
